@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="todo.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="todo">
+    <h1 style="text-align: center;">Your Todo</h1>
+
+
+    <div class="todoContainer">
+      <div class="todo-input">
+        <input type="text" name="todo" id="todo" placeholder="Enter Your Todo">
+      </div>
+      <div class="todo-date">
+        <input type="date" id="todoDate" name="todoDate">
+
+      </div>
+
+      <div class="todo-input-button">
+        <button class="add todo-button" onclick="addTodo();" class="todo-submission-button">Add Todo</button>
+        <button class="update todo-button js-update-todo todo-submission-button">Save Todo</button>
+      </div>
+    </div>
+
+    <div class="todo-list-container">
+
+    </div>
+  </div>
+
+  <script>
+    let todoArray = [];
+    function renderTodo() {
+      let todo = document.querySelector(".todo-list-container");
+      let todoHtml = "";
+
+      todoArray.forEach((todo, index) => {
+
+        todoHtml += `<div class="todo-list" >
+          
+          <p>${index+1} -  ${todo.todoVal} </p></div> 
+          <div class="todo-list-date"><p>
+          ${todo.todoDate}</p></div> 
+           <div class="todo-buttons">
+             <button class="delete todo-button" onclick="deleteTodo(${index});">Delete Todo</button>
+           <button class="update todo-button" onclick="updateTodo(${index})">Update Todo</button>
+           </div>`
+        console.log("array current", todoArray);
+
+
+      })
+
+
+      //  document.querySelector(".todo-list-container").innerHTML+=todoHtml;
+      todo.innerHTML = todoHtml;
+    }
+
+    function addTodo() {
+
+      let todoVal = document.getElementById("todo").value;
+
+      let todoDate = document.getElementById("todoDate").value;
+      if (todoVal == "" && todoDate == "") {
+        document.querySelector(".todo-list-container").innerHTML = "<p>Enter a todo</p>";
+
+      }
+      else {
+        todoArray.push({ todoVal, todoDate });
+        document.getElementById("todo").value = "";
+        document.getElementById("todoDate").value = "";
+        saveTodo();
+        renderTodo();
+      }
+    }
+    function deleteTodo(index) {
+      console.log("I am deleted todo ", index);
+
+      todoArray.splice(index, 1);
+      console.log(todoArray);
+      saveTodo();
+      renderTodo();
+    }
+    // function updateTodo(index) {
+    //   todoArray[index].todoVal = "Enter Your Todo";
+    //   todoArray[index].todoDate = "Enter Date";
+    //         console.log("update", todoArray[index]);
+
+    //   let updateBtn= document.querySelector(".js-update-todo");
+    //   updateBtn.addEventListener('click',()=>{
+
+    //     let todoUpdatedVal= document.getElementById("todo").value;
+    //     let todoUpdatedDate= document.getElementById("todoDate").value;
+    //     todoArray[index].todoVal= todoUpdatedVal;
+    //     todoArray[index].todoDate= todoUpdatedDate;
+    //     console.log(todoArray);
+    //     saveTodo();
+    //                 renderTodo();
+
+    //   })
+
+    // }
+     
+
+    function saveTodo() {
+      localStorage.setItem('todo', JSON.stringify(todoArray));
+
+    }
+    function loadFromLocalStorage() {
+      const storedTodos = JSON.parse(localStorage.getItem("todo"));
+
+      if (storedTodos) {
+        todoArray = storedTodos;
+        renderTodo(); 
+      }
+    }
+    loadFromLocalStorage();
+  </script>
+</body>
+
+</html>
