@@ -1,19 +1,25 @@
 .todo{
-    width: 650px;
+    width: 1000px;
     margin: 0 auto;
     background-color: rgb(241, 197, 204);
     height: auto;
     border: 1px solid black;
+   
     font-size: 18px;
 }
-.todoContainer,
+
+.todo-input-container,
 .todo-list-container
 {
 display: grid;
-grid-template-columns: 210px 150px 300px;
+place-content: center;
+grid-template-columns: 210px 150px 1fr;
 column-gap: 10px;
 padding: 5px;
 }
+
+
+
 .todo-list-container{
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
@@ -38,12 +44,44 @@ input{
 .delete{
     background-color: rgb(82, 14, 14);
 }
+.delete:hover{
+        background-color: rgb(110, 51, 51);
+
+}
 .update{
     background-color: rgb(6, 39, 6);
 }
-.add{
-    background-color: rgb(110, 110, 134);
+.update:hover{
+    background-color: rgb(38, 73, 38);
 }
-.todo-input-button{
-    /* background-color: rgb(187, 147, 147); */
+.add{
+ background-color: rgb(202, 151, 40);
+    width: 250px;
+}
+.add:hover{
+     background-color: rgb(192, 177, 92);
+
+}
+.todo-update-input,
+.todo-update-date
+{
+     padding: 10px 15px;
+    width: 100px;
+    /* margin: 5px; */
+display: none;
+}
+.todo-save{
+    display: none;
+}
+.show-update .todo-update-input {
+    display: initial;
+}
+.show-update .todo-update-date{
+    display: initial;
+}
+.show-update .todo-save{
+    display: initial;
+}
+.show-update .todo-save:hover{
+    color: green;
 }
